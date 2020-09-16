@@ -17,7 +17,7 @@ export interface ParsedRecurring {
 
 export interface RecurringType {
   parse: (rawEvent: EventInput, leftoverProps: any, dateEnv: DateEnv) => ParsedRecurring | null
-  expand: (typeData: any, framingRange: DateRange, dateEnv: DateEnv) => DateMarker[]
+  expand: (typeData: any, framingRange: DateRange, dateEnv: DateEnv) => DateMarker[] | DateRange[]
 }
 
 
@@ -71,7 +71,7 @@ export function expandRecurringRanges(
   framingRange: DateRange,
   dateEnv: DateEnv,
   recurringTypes: RecurringType[]
-): DateMarker[] {
+): DateMarker[] | DateRange[] {
   let typeDef = recurringTypes[eventDef.recurringDef.typeId]
   let markers = typeDef.expand(
     eventDef.recurringDef.typeData,
@@ -83,8 +83,8 @@ export function expandRecurringRanges(
   )
 
   // the recurrence plugins don't guarantee that all-day events are start-of-day, so we have to
-  if (eventDef.allDay) {
-    markers = markers.map(startOfDay)
+  if (eventDef.allDay && (markers[0] as DateRange).start == undefined) {
+    markers = (markers as Date[]).map(startOfDay)
   }
 
   return markers

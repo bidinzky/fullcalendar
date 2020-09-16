@@ -78,10 +78,16 @@ export function expandRecurring(eventStore: EventStore, framingRange: DateRange,
       let starts = expandRecurringRanges(def, duration, framingRange, calendar.dateEnv, calendar.pluginSystem.hooks.recurringTypes)
 
       for (let start of starts) {
-        let instance = createEventInstance(defId, {
-          start,
-          end: dateEnv.add(start, duration)
-        })
+        let instance;
+        if(start instanceof Date) {
+          instance = createEventInstance(defId, {
+            start,
+            end: dateEnv.add(start, duration)
+          })
+        }else{
+          instance = createEventInstance(defId, start);
+        }
+        
         instances[instance.instanceId] = instance
       }
     }

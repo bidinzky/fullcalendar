@@ -10,7 +10,7 @@
     ],
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
-    "checkJs": true,
+    "checkJs": false,
     "noUnusedLocals": true,
     "noImplicitUseStrict": true,
     "importHelpers": true,

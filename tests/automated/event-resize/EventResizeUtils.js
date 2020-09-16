@@ -8,7 +8,7 @@ export function resize(point0, point1, fromStart, debug) {
   eventEl.simulate('mouseover') // so that resize handle is revealed
 
   var resizerEl = eventEl.find(fromStart ? '.fc-start-resizer' : '.fc-end-resizer')
-  var resizerRect = resizerEl[0].getBoundingClientRect()
+  var resizerRect = resizerEl.get(0).getBoundingClientRect()
   var resizerCenter = getRectCenter(resizerRect)
 
   var vector = subtractPoints(

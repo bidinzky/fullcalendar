@@ -39,7 +39,7 @@ let recurring: RecurringType = {
     return null
   },
 
-  expand(rrule: RRule, framingRange: DateRange): DateMarker[] {
+  expand(rrule: RRule, framingRange: DateRange): DateMarker[] | DateRange[] {
     // we WANT an inclusive start and in exclusive end, but the js rrule lib will only do either BOTH
     // inclusive or BOTH exclusive, which is stupid: https://github.com/jakubroztocil/rrule/issues/84
     // Workaround: make inclusive, which will generate extra occurences, and then trim.
